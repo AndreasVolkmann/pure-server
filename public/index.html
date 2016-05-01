@@ -7,16 +7,18 @@
     <link rel="stylesheet" href="stylesheets/style.css">
 
     <script src="components/angular/angular.min.js"></script>
+    <script src="components/angular-route/angular-route.min.js">    </script>
     <script src="components/socket.io-client/socket.io.js"></script>
     <script src="javascripts/app.js"></script>
     <script src="javascripts/client.js"></script>
     <!-- Controllers -->
     <script src="javascripts/controllers/Main.js"></script>
+    <script src="javascripts/controllers/UserController.js"></script>
     <!-- Services -->
     <script src="javascripts/services/Socket.js"></script>
 </head>
 <body>
-<h1>Pure Server</h1>
+<h1 ng-bind="ctrl.title">Pure Seed</h1>
 
 <ng-view></ng-view>
 
