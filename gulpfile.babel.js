@@ -2,7 +2,7 @@
 
 require('babel-core/register');
 require('babel-polyfill');
-import 'gulp';
+import gulp from 'gulp';
 import nodemon from 'gulp-nodemon';
 import ngConstant from 'gulp-ng-constant';
 import {argv} from 'yargs';
