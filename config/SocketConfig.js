@@ -1,3 +1,12 @@
-/**
- * Created by Av on 01-05-2016.
- */
+'use strict';
+
+import UserController from '../app/controllers/UserController';
+import User from '../app/models/User';
+
+module.exports = function (io, socket) {
+    
+    
+    
+    
+};
+

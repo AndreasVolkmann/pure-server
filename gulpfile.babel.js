@@ -30,7 +30,7 @@ gulp.task('default', async() => {
     }
 
     nodemon({
-        exec: "babel-node --presets=es2015,stage-3",
+        exec: "babel-node",
         script: 'bin/www',
         ext: 'js',
         env: {

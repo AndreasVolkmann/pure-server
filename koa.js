@@ -8,7 +8,7 @@ const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser')();
 const logger = require('koa-logger');
 const cors = require('kcors');
-app.io = require('socket.io');
+app.io = require('socket.io')();
 
 
 const index = require('./routes/index');

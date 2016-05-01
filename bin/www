@@ -1,31 +1,45 @@
 #!/usr/bin/env node
-
+'use strict';
 /**
  * Module dependencies.
  */
 
-var app = require('../koa');
-var debug = require('debug')('demo:server');
-var http = require('http');
+const app = require('../koa');
+const http = require('http');
+const mongoose = require('mongoose');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 // app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app.callback());
+const server = http.createServer(app.callback());
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(3000);
+const url = require('../config/Connections').local.url();
+mongoose.connect(url, (error) => {
+    if (error) throw error;
+    console.log('Connected to the database!');
+
+    // IO Setup
+    const io = app.io;
+    io.attach(server);
+    io.on('connection', (socket) => {
+        console.log(`Socket connected: ${socket.id}`);
+        require('../config/SocketConfig')(io, socket);
+    });
+});
+
+server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -86,5 +100,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  //debug('Listening on ' + bind);
 }
