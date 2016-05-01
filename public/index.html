@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="app" ng-controller="Main as ctrl">
 <head>
     <meta charset="UTF-8">
     <title>Pure Server</title>
 
     <link rel="stylesheet" href="stylesheets/style.css">
+
+    <script src="components/angular/angular.min.js"></script>
+    <script src="components/socket.io-client/socket.io.js"></script>
+    <script src="javascripts/app.js"></script>
+    <script src="javascripts/client.js"></script>
+    <!-- Controllers -->
+    <script src="javascripts/controllers/Main.js"></script>
+    <!-- Services -->
+    <script src="javascripts/services/Socket.js"></script>
 </head>
 <body>
-    <h1>Pure Server</h1>
+<h1>Pure Server</h1>
+
+<ng-view></ng-view>
+
 </body>
 </html>

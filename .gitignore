@@ -3,6 +3,8 @@
 out
 gen
 
+public/javascripts/client.js
+
 ### Node template
 # Logs
 logs
