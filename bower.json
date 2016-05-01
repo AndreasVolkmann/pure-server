@@ -1,0 +1,20 @@
+{
+  "name": "pure-server",
+  "description": "A node server template",
+  "main": "",
+  "authors": [
+    "goreRatzete <avolkmann@icloud.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.5"
+  }
+}
