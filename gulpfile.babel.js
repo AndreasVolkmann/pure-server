@@ -1,7 +1,5 @@
 'use strict';
 
-require('babel-core/register');
-require('babel-polyfill');
 import gulp from 'gulp';
 import nodemon from 'gulp-nodemon';
 import ngConstant from 'gulp-ng-constant';
@@ -16,19 +14,10 @@ const config = argv.config;
 gulp.task('default', async() => {
     console.log(`Environment: ${environment}`);
     console.log(`Port: ${port}`);
+
     let ip = await Promise.resolve(getIpAddress());
     console.log(`Ip: ${ip}`);
-
-    if (config) {
-        await gulp.src('config/' + 'client' + '.json')
-            .pipe(ngConstant({
-                name: 'appConfig',
-                constants: {
-                    ip: `${ip}:${port}`
-                }
-            }))
-            .pipe(gulp.dest('public/javascripts/'));
-    }
+    configure(ip);
 
     nodemon({
         exec: "babel-node",
@@ -41,6 +30,19 @@ gulp.task('default', async() => {
         }
     });
 });
+
+async function configure(ip) {
+    if (config) {
+        await gulp.src('config/' + 'client' + '.json')
+            .pipe(ngConstant({
+                name: 'appConfig',
+                constants: {
+                    ip: `${ip}:${port}`
+                }
+            }))
+            .pipe(gulp.dest('public/javascripts/'));
+    }
+}
 
 
 // get the local ip address for this computer
