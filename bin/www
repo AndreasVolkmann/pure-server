@@ -7,7 +7,6 @@
 const app = require('../koa');
 const http = require('http');
 const mongoose = require('mongoose');
-
 /**
  * Get port from environment and store in Express.
  */
@@ -26,17 +25,15 @@ const server = http.createServer(app.callback());
  */
 
 const url = require('../config/Connections').local.url();
+console.info(url);
 mongoose.connect(url, (error) => {
     if (error) throw error;
-    console.log('Connected to the database!');
+    console.info('Connected to the database!');
 
-    // IO Setup
+    // Socket IO Setup
     const io = app.io;
     io.attach(server);
-    io.on('connection', (socket) => {
-        console.log(`Socket connected: ${socket.id}`);
-        require('../config/SocketConfig')(io, socket);
-    });
+    require('../socket/connection')(io);
 });
 
 server.listen(port);

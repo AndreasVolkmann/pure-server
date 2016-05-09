@@ -1,8 +1,8 @@
+import UserController from '../app/controllers/UserController';
 const router = require('koa-router')();
-const UserController = require('../app/controllers/UserController');
 
 
-router.get('/', async (ctx, next) => {
+router.get('/', async(ctx, next) => {
     ctx.body = await UserController.getUsers();
 });
 

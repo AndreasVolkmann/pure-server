@@ -2,9 +2,9 @@
 
 import User from '../models/User'
 
-module.exports = {
-
+export default {
     getUsers: async() => {
         return await User.find({});
     }
+
 };

@@ -11,6 +11,10 @@ const UserSchema = new mongoose.Schema({
         expires: EXPIRES,
         default: Date.now()
     },
+    role: {
+        type: String,
+        default: 'user'
+    },
     loc: {
         type: [Number],
         index: '2d',
