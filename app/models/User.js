@@ -1,26 +1,42 @@
 'use strict';
 
-import mongoose from 'mongoose';
-const EXPIRES = 60 * 30;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs');
 
-
-const UserSchema = new mongoose.Schema({
-    userName: String,
-    created: {
-        type: Date,
-        expires: EXPIRES,
-        default: Date.now()
+const UserSchema = new Schema({
+    userName: {
+        type    : String,
+        unique  : true,
+        required: true
     },
-    role: {
-        type: String,
+    password: {
+        type    : String,
+        required: true
+    },
+    role    : {
+        type   : String,
         default: 'user'
-    },
-    loc: {
-        type: [Number],
-        index: '2d',
-        sparse: true
     }
 });
 
+UserSchema.pre('save', function (next) {
+    let user = this;
+    if (this.isNew || this.isModified('password')) {
+        try {
+            let salt = bcrypt.genSaltSync(10);
+            let hash = bcrypt.hashSync(user.password, salt);
+            user.password = hash;
+        } catch (err) {
+            next(err);
+        }
+    }
+    next();
+});
+
+
+UserSchema.methods.comparePassword = function (passw) {
+    return bcrypt.compareSync(passw, this.password);
+};
 
 export default mongoose.model('User', UserSchema);
