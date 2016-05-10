@@ -1,4 +1,4 @@
-angular.module('app', ['ngRoute', 'appConfig']).config(['$routeProvider', function ($routeProvider) {
+angular.module('app', ['ngRoute', 'appConfig', 'ngMaterial', 'ngStorage']).config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'views/Users.html',
