@@ -9,6 +9,8 @@
     <script src="components/angular/angular.min.js"></script>
     <script src="components/angular-route/angular-route.min.js"></script>
     <script src="components/angular-material/angular-material.min.js"></script>
+    <script src="components/angular-animate/angular-animate.min.js"></script>
+    <script src="components/angular-aria/angular-aria.min.js"></script>
     <script src="components/ngstorage/ngStorage.min.js"></script>
     <script src="components/socket.io-client/socket.io.js"></script>
     <script src="javascripts/app.js"></script>
@@ -16,11 +18,27 @@
     <!-- Controllers -->
     <script src="javascripts/controllers/Main.js"></script>
     <script src="javascripts/controllers/UserController.js"></script>
+    <script src="javascripts/controllers/Login.js"></script>
     <!-- Services -->
     <script src="javascripts/services/Socket.js"></script>
     <script src="javascripts/services/UserFactory.js"></script>
 </head>
 <body>
+
+<nav class="navbar navbar-default navbar-static-top navbar-fixed-top">
+    <md-toolbar>
+        <div class="md-toolbar-tools" md-whiteframe="5">
+            <md-button href="#/">Home</md-button>
+            <h2><span>{{ctrl.title}}</span></h2>
+            <span flex></span>
+            <md-button ng-hide="$root.user" href="#/login" class="md-raised">Log In</md-button>
+            <h5 ng-show="$root.user"><span>
+                Logged in as <i>{{$root.user.userName}}</i>
+            <md-button ng-click="ctrl.logout()">(Log Out)</md-button>
+            </span></h5>
+        </div>
+    </md-toolbar>
+</nav>
 <h1 ng-bind="ctrl.title">Pure Seed</h1>
 
 <ng-view></ng-view>

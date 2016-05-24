@@ -2,15 +2,16 @@ angular.module('app').factory('Socket', ['$rootScope', '$http', 'ip', function (
     var token = $rootScope.token;
     var socket;
 
-    if (token) auth(token);
-    else socket = io.connect();
+    socket = io.connect();
 
     socket.on('connect', function () {
         console.log('Socket connected! ' + socket.id);
-
-        socket.on('disconnect', function (message) {
-            console.log('Disconnected: ' + message);
-        });
+    });
+    socket.on('disconnect', function (message) {
+        console.log('disconnected ' + message);
+    });
+    socket.on('error', function (err) {
+        console.log(err);
     });
 
     return {
@@ -25,7 +26,7 @@ angular.module('app').factory('Socket', ['$rootScope', '$http', 'ip', function (
             socket.on(eventName, wrapper);
         },
 
-        emit          : function (eventName, data, callback) {
+        emit              : function (eventName, data, callback) {
             socket.emit(eventName, data, function () {
                 var args = arguments;
                 $rootScope.$apply(function () {
@@ -35,20 +36,42 @@ angular.module('app').factory('Socket', ['$rootScope', '$http', 'ip', function (
                 });
             });
         },
-        removeListener: function (eventName, callback) {
+        removeListener    : function (eventName, callback) {
             socket.removeListener(eventName, callback);
         },
-        login         : login,
-        auth          : auth,
-        logout        : logout
+        removeAllListeners: function () {
+            socket.removeAllListeners();
+        },
+        login             : login,
+        auth              : auth,
+        logout            : logout
     };
 
-    function auth(token) {
+    function auth(token, done) {
         console.log('Authenticating ...');
         var query = 'token=' + token;
         socket.io.opts.query = query;
         socket.disconnect();
         socket = socket.connect();
+
+        socket.on('error', error);
+
+        socket.on('auth', auth);
+
+        function error(err) {
+            done(err);
+            removeEvents();
+        }
+
+        function auth() {
+            done();
+            removeEvents();
+        }
+
+        function removeEvents() {
+            socket.removeListener('error', error);
+            socket.removeListener('auth', auth);
+        }
     }
 
     function login(user, done) {
@@ -57,9 +80,15 @@ angular.module('app').factory('Socket', ['$rootScope', '$http', 'ip', function (
                 done(response.data.error);
             } else {
                 token = response.data.token;
-                user.token = token;
-                auth(token);
-                done(null, user);
+                user = {
+                    userName: user.userName,
+                    token   : token,
+                    role    : response.data.role
+                };
+                auth(token, function (err) {
+                    if (err) return done(err);
+                    done(null, user);
+                });
             }
         });
     }

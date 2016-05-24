@@ -1,20 +1,19 @@
-const Koa = require('koa');
-const app = new Koa();
-const router = require('koa-router')();
-const convert = require('koa-convert');
-const json = require('koa-json');
-const onerror = require('koa-onerror');
-const bodyparser = require('koa-bodyparser')();
-const logger = require('koa-logger');
-const cors = require('kcors');
-app.io = require('socket.io')();
+import Koa from 'koa'
+import convert from 'koa-convert'
+import json from 'koa-json';
+import bodyparser from 'koa-bodyparser';
+import logger from 'koa-logger';
+import cors from 'kcors';
 
+const router = require('koa-router')();
+const app = new Koa();
+app.io = require('socket.io')();
 
 const index = require('./routes/index');
 const users = require('./routes/users');
 
 // middleware
-app.use(convert(bodyparser));
+app.use(convert(bodyparser()));
 app.use(convert(json()));
 app.use(convert(logger()));
 app.use(convert(require('koa-static')(__dirname + '/public')));
@@ -40,4 +39,4 @@ app.on('error', function (err, ctx) {
 });
 
 
-module.exports = app;
+export default app;

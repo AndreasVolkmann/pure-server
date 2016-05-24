@@ -12,7 +12,7 @@ export default {
      */
     signup: async(userData) => {
         try {
-            let user = new User({
+            const user = new User({
                 userName: userData.userName,
                 password: userData.password,
                 role    : userData.role || 'user'
@@ -28,7 +28,7 @@ export default {
      * Verify the password, throw error if password or username is wrong
      */
     authenticate: async(userData)=> {
-        let user = await User.findOne({
+        const user = await User.findOne({
             userName: userData.userName
         });
 
@@ -46,7 +46,7 @@ export default {
      * Check if the user exists and return the assigned roles
      */
     verifyUser: async(userName) => {
-        let user = await Promise.resolve(User.findOne({userName: userName}));
+        const user = await Promise.resolve(User.findOne({userName: userName}));
         return user ? user.role : null;
     }
 };

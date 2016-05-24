@@ -6,7 +6,11 @@ module.exports = function (io) {
 
     io.on('connection', function (socket) {
         console.log(`Socket connected: ${socket.id}`);
+        socket.emit('auth');
         require('./user')(io, socket);
+        if (socket.role === 'admin') { // if the user is an Admin, give him access to the restricted endpoints
+            require('./admin')(io, socket);
+        }
     });
 
     /**
@@ -17,15 +21,13 @@ module.exports = function (io) {
         try {
             let token = socket.handshake.query.token;
             if (token) {
-                let decoded = jwt.verify(token, jwtconfig.secret);
+                const decoded = jwt.verify(token, jwtconfig.secret);
 
-                let role = await UserController.verifyUser(decoded.userName);
+                const role = await UserController.verifyUser(decoded.userName);
 
                 if (role) {
-                    // if the user is an Admin, give him access to the restricted endpoints
-                    if (role === 'admin') {
-                        require('./admin')(io, socket);
-                    }
+                    socket.userName = decoded.userName;
+                    socket.role = role;
                     return next();
                 }
             }

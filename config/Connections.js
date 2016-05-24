@@ -1,12 +1,13 @@
 'use strict';
-module.exports = {
+
+export default {
 
     local: {
-        host: 'localhost:27017',
-        user: 'admin',
+        host    : 'localhost:27017',
+        user    : 'admin',
         password: 'admin',
         database: 'test',
-        url: function () {
+        url     : function () {
             return getUrl(this);
         }
     }

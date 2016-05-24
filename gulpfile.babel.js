@@ -27,7 +27,8 @@ gulp.task('default', async() => {
             'NODE_ENV': environment,
             'PORT': port,
             'IP': ip
-        }
+        },
+        ignore: ["public/*"]
     });
 });
 
