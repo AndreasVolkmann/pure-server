@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Pure Server</title>
 
+    <link rel="stylesheet" href="components/angular-material/angular-material.min.css" />
     <link rel="stylesheet" href="stylesheets/style.css">
 
     <script src="components/angular/angular.min.js"></script>
@@ -19,6 +20,7 @@
     <script src="javascripts/controllers/Main.js"></script>
     <script src="javascripts/controllers/UserController.js"></script>
     <script src="javascripts/controllers/Login.js"></script>
+    <script src="javascripts/controllers/NewProject.js"></script>
     <!-- Services -->
     <script src="javascripts/services/Socket.js"></script>
     <script src="javascripts/services/UserFactory.js"></script>
@@ -29,13 +31,14 @@
     <md-toolbar>
         <div class="md-toolbar-tools" md-whiteframe="5">
             <md-button href="#/">Home</md-button>
-            <h2><span>{{ctrl.title}}</span></h2>
+            <h2><span>Pure Match</span></h2>
             <span flex></span>
             <md-button ng-hide="$root.user" href="#/login" class="md-raised">Log In</md-button>
-            <h5 ng-show="$root.user"><span>
+            <h5 ng-show="$root.user" ><span>
                 Logged in as <i>{{$root.user.userName}}</i>
-            <md-button ng-click="ctrl.logout()">(Log Out)</md-button>
+            <md-button  ng-click="ctrl.logout()">(Log Out)</md-button>
             </span></h5>
+            <md-button href="#/newproject" class="md-raised">New Project</md-button>
         </div>
     </md-toolbar>
 </nav>

@@ -1,6 +1,6 @@
 {
   "name": "pure-server",
-  "description": "A node server template",
+  "description": "A node server seed for koa",
   "main": "",
   "authors": [
     "goreRatzete <avolkmann@icloud.com>"
@@ -19,6 +19,7 @@
     "angular-route": "^1.5.5",
     "angular-material": "^1.1.0",
     "angular-animate": "^1.5.5",
-    "socket.io-client": "^1.4.6"
+    "socket.io-client": "^1.4.6",
+    "ngstorage": "^0.3.10"
   }
 }
