@@ -6,8 +6,8 @@ import logger from 'koa-logger'
 import cors from 'kcors'
 import helmet from 'koa-helmet'
 
-const router = require('koa-router')();
 const app = new Koa();
+const router = require('koa-router')();
 app.io = require('socket.io')();
 
 const index = require('./routes/index');

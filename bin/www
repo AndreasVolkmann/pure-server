@@ -6,6 +6,7 @@
 import http from 'http';
 import mongoose from 'mongoose';
 import Connections from '../config/Connections'
+import Socket from '../socket/connection'
 import app from '../koa';
 
 /**
@@ -34,7 +35,7 @@ mongoose.connect(URL, (error) => {
     // Socket IO Setup
     const io = app.io;
     io.attach(server);
-    require('../socket/connection')(io);
+    Socket.register(io);
 });
 
 server.listen(port);

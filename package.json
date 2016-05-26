@@ -1,10 +1,9 @@
 {
   "name": "pure-server",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "start": "gulp --config true",
-    "koa": "./node_modules/.bin/runkoa bin/www",
     "test": "mocha --compilers js:babel-register --require babel-polyfill"
   },
   "dependencies": {

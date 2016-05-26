@@ -1,0 +1,59 @@
+<md-card md-whiteframe="5" layout-padding>
+    <md-toolbar class="md-theme-light">
+        <h2 class="md-toolbar-tools">New Match Project</h2>
+    </md-toolbar>
+    <br/>
+    <div layout="row" class="">
+        <div flex-gt-sm="35" flex>
+            <form ng-submit="ctrl.createProject()" role="form">
+                <md-input-container class="md-block">
+                    <label for="matchName">Name</label>
+                    <md-icon md-svg-icon="../resources/ic_account_box_black_24px.svg" class="name"></md-icon>
+                    <input ng-model="ctrl.project.name" id="matchName" type="text" autocomplete="off"
+                           required/>
+                </md-input-container>
+
+                <md-input-container>
+                    <label for="customer">Customer</label>
+                    <md-icon md-svg-icon="../resources/ic_business_black_24px.svg"></md-icon>
+                    <input type="text" id="customer" ng-model="ctrl.project.customer" required />
+                </md-input-container>
+                <br/>
+                <md-button type="submit" class="md-primary md-raised">Submit</md-button>
+
+            </form>
+        </div>
+        <div flex-gt-sm="5"></div>
+        <div flex-gt-sm="50" flex>
+
+            <md-subheader class="md-no-sticky">Customers</md-subheader>
+            <md-list>
+                <md-list-item ng-click="ctrl.selectCustomer(customer)" ng-repeat="customer in ctrl.customers">
+                    <p>{{customer}}</p>
+                </md-list-item>
+            </md-list>
+            <!--
+            <fieldset class="form-group">
+                <label for="customerList">Customers</label>
+                <select ng-model="ctrl.project.customer" size="5" class="form-control" id="customerList" required>
+                    <option ng-repeat="customer in ctrl.customers">{{customer}}</option>
+                </select>
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="customerName">New Customer</label>
+                <div class="input-group">
+        <span class="input-group-btn">
+            <button ng-click="ctrl.addCustomer()" class="btn btn-default" type="button">Add</button>
+        </span>
+                    <input ng-model="ctrl.newCustomer" id="customerName" class="form-control" type="text"
+                           placeholder="Enter customer"/>
+                </div>
+            </fieldset>
+
+            -->
+
+        </div>
+    </div>
+
+
+</md-card>
