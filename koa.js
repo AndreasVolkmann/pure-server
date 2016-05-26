@@ -1,9 +1,10 @@
 import Koa from 'koa'
 import convert from 'koa-convert'
-import json from 'koa-json';
-import bodyparser from 'koa-bodyparser';
-import logger from 'koa-logger';
-import cors from 'kcors';
+import json from 'koa-json'
+import bodyparser from 'koa-bodyparser'
+import logger from 'koa-logger'
+import cors from 'kcors'
+import helmet from 'koa-helmet'
 
 const router = require('koa-router')();
 const app = new Koa();
@@ -13,6 +14,7 @@ const index = require('./routes/index');
 const users = require('./routes/users');
 
 // middleware
+app.use(helmet());
 app.use(convert(bodyparser()));
 app.use(convert(json()));
 app.use(convert(logger()));
