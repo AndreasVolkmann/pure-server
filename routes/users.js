@@ -18,10 +18,10 @@ router.get('/', async(ctx, next) => {
  */
 router.post('/login', async(ctx, next) => {
     try {
-        let user = ctx.request.body;
-        await UserController.authenticate(user);
-        let token = jwt.sign(user, jwtconfig.secret);
-        ctx.body = {token: token};
+        const userData = ctx.request.body;
+        const user = await UserController.authenticate(userData);
+        const token = jwt.sign(userData, jwtconfig.secret);
+        ctx.body = {token: token, role: user.role};
     } catch (err) {
         ctx.body = {error: err};
     }

@@ -34,7 +34,7 @@ export default {
 
         if (user) { // user exists
             if (user.comparePassword(userData.password)) { // true if passwords match
-                return;
+                return user;
             } else {
                 throw new Error('Wrong password');
             }

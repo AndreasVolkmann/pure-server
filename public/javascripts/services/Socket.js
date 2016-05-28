@@ -76,6 +76,7 @@ angular.module('app').factory('Socket', ['$rootScope', '$http', 'ip', function (
 
     function login(user, done) {
         $http.post('http://' + IP + '/users/login', user).then(function (response) {
+            console.log(response);
             if (response.data.error) {
                 done(response.data.error);
             } else {

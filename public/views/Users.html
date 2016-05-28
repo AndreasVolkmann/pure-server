@@ -1,4 +1,14 @@
-<div>
+<md-card layout-padding>
+    <div>
+        <div flex-gt-sm="50">
+            <h2>All Users</h2>
+            <li ng-repeat="user in users">{{user.userName}}</li>
+        </div>
+
+    </div>
+</md-card>
+
+<md-card layout-padding ng-show="$root.user.role === 'admin'">
     <h2>Currently Online</h2>
-    <p ng-repeat="user in users">{{user.userName}}</p>
-</div>
+    <li ng-repeat="user in online">{{user}}</li>
+</md-card>
